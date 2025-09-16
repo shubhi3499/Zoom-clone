@@ -49,6 +49,7 @@ export default function VideoMeetComponent() {
   const [video, setVideo] = useState([]);
   const [audio, setAudio] = useState();
   const [screen, setScreen] = useState(false);
+  const [showModal,setModal] = useState(true);
   const [screenAvailable, setScreenAvailable] = useState(false);
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
@@ -264,6 +265,11 @@ export default function VideoMeetComponent() {
     setScreen(!screen);
   };
 
+  let sendMessage = () =>{
+    
+  }
+
+  
   return (
     <div>
       {askForUsername ? (
@@ -285,6 +291,18 @@ export default function VideoMeetComponent() {
         </div>
       ) : (
         <div className={styles.meetVideoContainer}>
+          {showModal?<div className={styles.chatRoom}>
+            
+              <div className={styles.chatContainer}>
+              <h1>Chat</h1>
+              <div className={styles.chattingArea}>
+              <TextField id="outlined-basic" label="Enter your chat" variant="outlined" />
+              <Button variant="contained" onClick={sendMessage}>Send</Button>
+              </div>
+              
+              </div>
+          </div>:<></>}
+          
           <div className={styles.buttonContainer}>
             <IconButton onClick={handleVideo} style={{ color: "white", transform: "scale(1.2)" }}>
               {video === true ? <VideocamIcon /> : <VideocamOffIcon />}
@@ -302,7 +320,7 @@ export default function VideoMeetComponent() {
             </IconButton>
 
             <Badge badgeContent={newMessages} max={999} color="secondary">
-              <IconButton style={{ color: "white" }}>
+              <IconButton onClick={()=>setModal(!showModal)} style={{ color: "white" }}>
                 <ChatIcon />
               </IconButton>
             </Badge>
