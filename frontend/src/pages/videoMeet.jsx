@@ -121,8 +121,15 @@ export default function VideoMeetComponent() {
     }
   };
 
-  const addMessage = () => {
-    // TODO: chat logic
+  const addMessage = (data,sender,socketIdSender) => {
+    setMessages((prevMessages)=>[
+      ...prevMessages,
+      {sender:sender,data:data}
+    ]);
+    if(socketIdSender !== socketIdRef.current)
+    {
+      setNewMessages((prevMessages)=>prevMessages+1);
+    }
   };
 
  
@@ -266,7 +273,8 @@ export default function VideoMeetComponent() {
   };
 
   let sendMessage = () =>{
-    
+    socketRef.current.emit("chat-message",message,username);
+    setMessage("");
   }
 
   
@@ -295,8 +303,18 @@ export default function VideoMeetComponent() {
             
               <div className={styles.chatContainer}>
               <h1>Chat</h1>
+              <div className={styles.chattingDisplay}>
+                {messages.length > 0 ?messages.map((item,index)=>{
+                  return(
+                    <div style={{marginBottom:"20px"}} key={index}>
+                      <p style={{fontWeight:"bold"}}>{item.sender}</p>
+                    </div>
+                  )
+                }):<>No Messages Yet</>
+                }
+              </div>
               <div className={styles.chattingArea}>
-              <TextField id="outlined-basic" label="Enter your chat" variant="outlined" />
+              <TextField value={message} onChange={e=>setMessage(e.target.value)} id="outlined-basic" label="Enter your chat" variant="outlined" />
               <Button variant="contained" onClick={sendMessage}>Send</Button>
               </div>
               
