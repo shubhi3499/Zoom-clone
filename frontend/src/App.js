@@ -4,6 +4,7 @@ import LandingPage from './pages/landing';
 import Authentication from './pages/authentication';
 import { AuthProvider } from './contexts/AuthContext';
 import VideoMeetComponent from './pages/videoMeet.jsx';
+import HomeComponent from './pages/home.jsx';
 
 
 function App() {
@@ -20,8 +21,8 @@ function App() {
 
           <Route path='/auth' element={<Authentication />} />
 
-          {/* <Route path='/home's element={<HomeComponent />} />
-          <Route path='/history' element={<History />} /> */}
+          <Route path='/home' element={<HomeComponent />} />
+          {/* <Route path='/history' element={<History />} /> */}
           <Route path='/:url' element={<VideoMeetComponent />} /> 
         </Routes>
       </AuthProvider>
