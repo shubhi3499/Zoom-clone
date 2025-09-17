@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "../styles/videoComponent.module.css";
-
+import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import VideocamOffIcon from "@mui/icons-material/VideocamOff";
@@ -191,6 +191,7 @@ export default function VideoMeetComponent() {
     connectToSocketServer();
   };
 
+  let routerTo = useNavigate();
   const connect = () => {
     setAskUsername(false);
     getMedia();
@@ -277,6 +278,16 @@ export default function VideoMeetComponent() {
     setMessage("");
   }
 
+  let handleEndCall = ()=>{
+    try{
+      let tracks = localVideoRef.current.srcObject.getTracks();
+      tracks.forEach(track=>track.stop())
+
+    }catch(e){
+
+    }routerTo("/home");
+  }
+
   
   return (
     <div>
@@ -325,8 +336,8 @@ export default function VideoMeetComponent() {
             <IconButton onClick={handleVideo} style={{ color: "white", transform: "scale(1.2)" }}>
               {video === true ? <VideocamIcon /> : <VideocamOffIcon />}
             </IconButton>
-            <IconButton style={{ color: "red" }}>
-              <CallEndIcon />
+            <IconButton onClick={handleEndCall} style={{ color: "red" }}>
+              <CallEndIcon/>
             </IconButton>
             <IconButton onClick={handleAudio} style={{ color: "white" }}>
               {audio === true ? <MicIcon /> : <MicOffIcon />}
