@@ -1,35 +1,35 @@
 import './App.css';
-import {Route,BrowserRouter as Router,Routes} from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import LandingPage from './pages/landing';
 import Authentication from './pages/authentication';
 import { AuthProvider } from './contexts/AuthContext';
 import VideoMeetComponent from './pages/videoMeet.jsx';
-import HomeComponent from './pages/home.jsx';
-import History from './pages/history.jsx';
-
+import HomeComponent from './pages/home';
+import History from './pages/history';
 
 function App() {
   return (
     <div className="App">
 
-    <Router>
+      <Router>
 
-      <AuthProvider>
+        <AuthProvider>
 
-        <Routes>
 
-          <Route path='/' element={<LandingPage />} />
+          <Routes>
 
-          <Route path='/auth' element={<Authentication />} />
+            <Route path='/' element={<LandingPage />} />
 
-          <Route path='/home' element={<HomeComponent />} />
-          <Route path='/history' element={<History />} />
-          <Route path='/:url' element={<VideoMeetComponent />} /> 
-        </Routes>
-      </AuthProvider>
+            <Route path='/auth' element={<Authentication />} />
 
-    </Router>
-  </div>
+            <Route path='/home's element={<HomeComponent />} />
+            <Route path='/history' element={<History />} />
+            <Route path='/:url' element={<VideoMeetComponent />} />
+          </Routes>
+        </AuthProvider>
+
+      </Router>
+    </div>
   );
 }
 
